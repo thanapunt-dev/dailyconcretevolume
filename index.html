@@ -167,8 +167,8 @@ canvas{display:block;max-width:100%}
       </div>
       <div class="exec-card" style="background:#f0fdf4;border-top:4px solid #22c55e">
         <div style="font-size:11px;color:#8a96b0;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">&#9889; อัตราใช้น้ำมัน &middot; รถตัก (นาวัง)</div>
-        <div style="font-size:24px;font-weight:800;color:#27ae60">0.16<span style="font-size:12px;font-weight:400;color:#8a96b0;margin-left:2px">ล./คิว</span></div>
-        <div style="font-size:11px;color:#8a96b0;margin-top:4px">คิว 2,929.20 ลบ.ม. &middot; น้ำมัน 480 ลิตร</div>
+        <div style="font-size:24px;font-weight:800;color:#27ae60">0.36<span style="font-size:12px;font-weight:400;color:#8a96b0;margin-left:2px">ล./คิว</span></div>
+        <div style="font-size:11px;color:#8a96b0;margin-top:4px">คิว 1,329.65 ลบ.ม. &middot; น้ำมัน 480 ลิตร</div>
       </div>
     </div>
     <div class="chart-2">
@@ -625,7 +625,7 @@ function renderExec(){
   const fBH=FUEL_DAILY.reduce((s,r)=>s+(r.backhoe||0),0);
   const fPT=FUEL_DAILY.reduce((s,r)=>s+(r.loaderPT||0),0);
   const fNW=FUEL_DAILY.reduce((s,r)=>s+(r.loaderNW||0),0);
-  document.getElementById('execFuelSummary').innerHTML=[{lbl:'รถแบคโฮ JCB (พัทยา)',val:fBH,rate:'0.70',good:true},{lbl:'รถตัก (พัทยา)',val:fPT,rate:'0.64',good:true},{lbl:'รถตัก (นาวัง)',val:fNW,rate:'0.16',good:true}].map(r=>`<div class="fuel-rate"><div><div style="font-size:12px;font-weight:600;color:#2c3e50">${r.lbl}</div><div style="font-size:10px;color:#8a96b0">${r.val.toLocaleString('th-TH')} ลิตร</div></div><div style="font-size:14px;font-weight:700;color:${r.good?'#27ae60':'#ef4444'}">${r.rate} ล./คิว</div></div>`).join('')+`<div style="padding:8px 0;border-top:2px solid #f0a500;margin-top:4px;display:flex;justify-content:space-between;align-items:baseline"><div style="font-size:12px;font-weight:700;color:#1a3a6b">รวมน้ำมันทั้งหมด</div><div style="font-size:16px;font-weight:800;color:#1a3a6b">${(fBH+fPT+fNW).toLocaleString('th-TH')} ลิตร</div></div>`;
+  document.getElementById('execFuelSummary').innerHTML=[{lbl:'รถแบคโฮ JCB (พัทยา)',val:fBH,rate:'0.70',good:true},{lbl:'รถตัก (พัทยา)',val:fPT,rate:'0.64',good:true},{lbl:'รถตัก (นาวัง)',val:fNW,rate:'0.36',good:true}].map(r=>`<div class="fuel-rate"><div><div style="font-size:12px;font-weight:600;color:#2c3e50">${r.lbl}</div><div style="font-size:10px;color:#8a96b0">${r.val.toLocaleString('th-TH')} ลิตร</div></div><div style="font-size:14px;font-weight:700;color:${r.good?'#27ae60':'#ef4444'}">${r.rate} ล./คิว</div></div>`).join('')+`<div style="padding:8px 0;border-top:2px solid #f0a500;margin-top:4px;display:flex;justify-content:space-between;align-items:baseline"><div style="font-size:12px;font-weight:700;color:#1a3a6b">รวมน้ำมันทั้งหมด</div><div style="font-size:16px;font-weight:800;color:#1a3a6b">${(fBH+fPT+fNW).toLocaleString('th-TH')} ลิตร</div></div>`;
 
   // Observations
   const p2Days=DAILY.slice(0,DATA_DAYS).filter(d=>(d['P2']||0)>0).length;
