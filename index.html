@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Dashboard คิวคอนกรีต กรกฎาคม 2569</title>
+<title>Dashboard คิวคอนกรีต สิงหาคม 2569</title>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Segoe UI','Helvetica Neue',sans-serif;background:#f7f1e6;color:#2c3e50;font-size:14px;position:relative}
@@ -89,10 +89,10 @@ canvas{display:block;max-width:100%}
   <div style="display:flex;align-items:center;gap:12px">
     <div class="hdr-title">
       <h1>Dashboard คิวคอนกรีตประจำวัน</h1>
-      <p>กรกฎาคม 2569</p>
+      <p>สิงหาคม 2569</p>
     </div>
   </div>
-  <div class="hdr-meta">อัปเดต: 1 ส.ค. 2569<br>ข้อมูลครบ 31 วัน (เดือนสมบูรณ์)</div>
+  <div class="hdr-meta">อัปเดต: 3 ส.ค. 2569<br>ข้อมูลครบ 2 วัน (เดือนยังไม่สมบูรณ์)</div>
 </header>
 <nav class="nav">
   <button class="nav-btn" id="navExec" onclick="setView('exec')">&#128203; สรุปผู้บริหาร</button>
@@ -108,7 +108,7 @@ canvas{display:block;max-width:100%}
   </div>
   <div style="width:1px;background:#dce3ee;align-self:stretch"></div>
   <div>
-    <div style="font-size:11px;color:#6b7a99;font-weight:600;margin-bottom:5px">&#128197; กรกฎาคม 2569 — คลิกวันที่มีข้อมูล</div>
+    <div style="font-size:11px;color:#6b7a99;font-weight:600;margin-bottom:5px">&#128197; สิงหาคม 2569 — คลิกวันที่มีข้อมูล</div>
     <div class="cal-grid" id="calGrid"></div>
     <div style="display:flex;gap:14px;margin-top:6px">
       <div style="display:flex;align-items:center;gap:5px;font-size:10px;color:#8a96b0"><div style="width:10px;height:10px;border-radius:3px;background:#eaf0fb;border:1px solid #1a3a6b"></div>มีข้อมูล</div>
@@ -119,7 +119,7 @@ canvas{display:block;max-width:100%}
 <div class="content">
   <div class="notice" id="noticeBar"><span>&#128203;</span><span id="noticeText">แสดงคิวรวมสะสมทั้งเดือน</span></div>
   <div id="viewExec" style="display:none">
-    <div class="sec-title"><span>&#128203; สรุปผู้บริหาร &middot; กรกฎาคม 2569</span></div>
+    <div class="sec-title"><span>&#128203; สรุปผู้บริหาร &middot; สิงหาคม 2569</span></div>
     <div class="kpi-row" id="execKpiRow"></div>
     <div class="exec-grid-2">
       <div class="exec-card"><h3>&#127981; การผลิตแยกตามสถานที่</h3><div id="execLocTable"></div></div>
@@ -158,18 +158,18 @@ canvas{display:block;max-width:100%}
     <div class="exec-grid-3">
       <div class="exec-card" style="background:#fffbeb;border-top:4px solid #f59e0b">
         <div style="font-size:11px;color:#8a96b0;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">&#9889; อัตราใช้น้ำมัน &middot; รถแบคโฮ JCB (พัทยา)</div>
-        <div style="font-size:24px;font-weight:800;color:#1a3a6b">0.70<span style="font-size:12px;font-weight:400;color:#8a96b0;margin-left:2px">ล./คิว</span></div>
-        <div style="font-size:11px;color:#8a96b0;margin-top:4px">คิว 3,005.05 ลบ.ม. &middot; น้ำมัน 2,100 ลิตร</div>
+        <div style="font-size:24px;font-weight:800;color:#1a3a6b">0.95<span style="font-size:12px;font-weight:400;color:#8a96b0;margin-left:2px">ล./คิว</span></div>
+        <div style="font-size:11px;color:#8a96b0;margin-top:4px">คิว 210.25 ลบ.ม. &middot; น้ำมัน 200 ลิตร</div>
       </div>
       <div class="exec-card" style="background:#f0fdf4;border-top:4px solid #3b82f6">
         <div style="font-size:11px;color:#8a96b0;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">&#9889; อัตราใช้น้ำมัน &middot; รถตัก (พัทยา)</div>
-        <div style="font-size:24px;font-weight:800;color:#27ae60">0.62<span style="font-size:12px;font-weight:400;color:#8a96b0;margin-left:2px">ล./คิว</span></div>
-        <div style="font-size:11px;color:#8a96b0;margin-top:4px">คิว 1,450.25 ลบ.ม. &middot; น้ำมัน 900 ลิตร</div>
+        <div style="font-size:24px;font-weight:800;color:#27ae60">1.04<span style="font-size:12px;font-weight:400;color:#8a96b0;margin-left:2px">ล./คิว</span></div>
+        <div style="font-size:11px;color:#8a96b0;margin-top:4px">คิว 57.75 ลบ.ม. &middot; น้ำมัน 60 ลิตร</div>
       </div>
       <div class="exec-card" style="background:#f0fdf4;border-top:4px solid #22c55e">
         <div style="font-size:11px;color:#8a96b0;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">&#9889; อัตราใช้น้ำมัน &middot; รถตัก (นาวัง)</div>
-        <div style="font-size:24px;font-weight:800;color:#27ae60">0.34<span style="font-size:12px;font-weight:400;color:#8a96b0;margin-left:2px">ล./คิว</span></div>
-        <div style="font-size:11px;color:#8a96b0;margin-top:4px">คิว 2,391.90 ลบ.ม. &middot; น้ำมัน 815 ลิตร</div>
+        <div style="font-size:24px;font-weight:800;color:#e67e22">8.51<span style="font-size:12px;font-weight:400;color:#8a96b0;margin-left:2px">ล./คิว</span></div>
+        <div style="font-size:11px;color:#8a96b0;margin-top:4px">คิว 7.05 ลบ.ม. &middot; น้ำมัน 60 ลิตร</div>
       </div>
     </div>
     <div class="chart-card" style="margin-bottom:14px"><h3 id="fuelChartTitle">&#9981; การเบิกน้ำมันรายวัน (ลิตร)</h3><div class="chart-wrap"><canvas id="fuelChart"></canvas></div></div>
@@ -210,79 +210,22 @@ const PRODUCTS = [
   {key:'เสาเข็ม_ปท',     label:'เสาเข็ม',        loc:'ptum',group:'เสาเข็ม'},
   {key:'แผ่นพื้น_ปท',    label:'แผ่นพื้น',       loc:'ptum',group:'แผ่น'},
 ];
-const DATA_DAYS = 31;
+const DATA_DAYS = 2;
 
 /* ══ DATA ════════════════════════════════════════════════ */
 const DAILY = [
-// วันที่ 1-10 มีข้อมูล
-  {label:'1 ก.ค.',  P1:229.75,P2:0,'ท่อกลม':25.4,'บ่ออัด':6.55,'บ่อเท':11.3,'แผ่นพื้น_นว':48.4,'แผ่นทางเท้า':0,'รางระบายน้ำอัด':0,'ขอบคันหิน':10.45,'บล็อกคัลเวิร์ท':109.05,'รั้วสำเร็จรูป':20.9,'กำแพงกันดิน':0,'ผสมเสร็จ':0,'อื่นๆ':0,'เสาเข็ม_นป':0,'เสาเข็ม_ปท':3.86,'แผ่นพื้น_ปท':15.83},
-  {label:'2 ก.ค.',  P1:68.5,P2:0,'ท่อกลม':46.7,'บ่ออัด':0,'บ่อเท':12.7,'แผ่นพื้น_นว':40.4,'แผ่นทางเท้า':0,'รางระบายน้ำอัด':2.5,'ขอบคันหิน':0,'บล็อกคัลเวิร์ท':101.5,'รั้วสำเร็จรูป':21.2,'กำแพงกันดิน':0,'ผสมเสร็จ':0,'อื่นๆ':1.1,'เสาเข็ม_นป':0,'เสาเข็ม_ปท':3.86,'แผ่นพื้น_ปท':0},
-  {label:'3 ก.ค.',  P1:197.5,P2:0,'ท่อกลม':11.7,'บ่ออัด':3.67,'บ่อเท':6.6,'แผ่นพื้น_นว':49,'แผ่นทางเท้า':0,'รางระบายน้ำอัด':2,'ขอบคันหิน':0,'บล็อกคัลเวิร์ท':86.5,'รั้วสำเร็จรูป':21.3,'กำแพงกันดิน':0,'ผสมเสร็จ':0,'อื่นๆ':0,'เสาเข็ม_นป':0,'เสาเข็ม_ปท':0,'แผ่นพื้น_ปท':20.84},
-  {label:'4 ก.ค.',  P1:15.5,P2:0,'ท่อกลม':0,'บ่ออัด':0,'บ่อเท':0,'แผ่นพื้น_นว':43.6,'แผ่นทางเท้า':0,'รางระบายน้ำอัด':0,'ขอบคันหิน':0,'บล็อกคัลเวิร์ท':0,'รั้วสำเร็จรูป':17.9,'กำแพงกันดิน':0,'ผสมเสร็จ':0,'อื่นๆ':0,'เสาเข็ม_นป':0,'เสาเข็ม_ปท':7.72,'แผ่นพื้น_ปท':0},
-  {label:'5 ก.ค.',  P1:71,P2:0,'ท่อกลม':0,'บ่ออัด':0,'บ่อเท':0,'แผ่นพื้น_นว':0,'แผ่นทางเท้า':0,'รางระบายน้ำอัด':0,'ขอบคันหิน':0,'บล็อกคัลเวิร์ท':0,'รั้วสำเร็จรูป':0,'กำแพงกันดิน':0,'ผสมเสร็จ':0,'อื่นๆ':0,'เสาเข็ม_นป':0,'เสาเข็ม_ปท':0,'แผ่นพื้น_ปท':20.84},
-  {label:'6 ก.ค.',  P1:104,P2:0,'ท่อกลม':66.5,'บ่ออัด':0,'บ่อเท':15.8,'แผ่นพื้น_นว':50.2,'แผ่นทางเท้า':0,'รางระบายน้ำอัด':2,'ขอบคันหิน':10.3,'บล็อกคัลเวิร์ท':94.8,'รั้วสำเร็จรูป':20.5,'กำแพงกันดิน':0,'ผสมเสร็จ':0,'อื่นๆ':0.4,'เสาเข็ม_นป':30,'เสาเข็ม_ปท':3.86,'แผ่นพื้น_ปท':10.42},
-  {label:'7 ก.ค.',  P1:161,P2:0,'ท่อกลม':28.6,'บ่ออัด':5.35,'บ่อเท':19.8,'แผ่นพื้น_นว':49.6,'แผ่นทางเท้า':0,'รางระบายน้ำอัด':0,'ขอบคันหิน':10.35,'บล็อกคัลเวิร์ท':100.95,'รั้วสำเร็จรูป':21.4,'กำแพงกันดิน':0,'ผสมเสร็จ':19,'อื่นๆ':0.3,'เสาเข็ม_นป':30,'เสาเข็ม_ปท':0,'แผ่นพื้น_ปท':21.23},
-  {label:'8 ก.ค.',  P1:113.75,P2:0,'ท่อกลม':28,'บ่ออัด':6.05,'บ่อเท':20.5,'แผ่นพื้น_นว':49.1,'แผ่นทางเท้า':0,'รางระบายน้ำอัด':0,'ขอบคันหิน':7.2,'บล็อกคัลเวิร์ท':58.3,'รั้วสำเร็จรูป':20.8,'กำแพงกันดิน':0,'ผสมเสร็จ':0,'อื่นๆ':0.4,'เสาเข็ม_นป':27.5,'เสาเข็ม_ปท':0,'แผ่นพื้น_ปท':20.84},
-  {label:'9 ก.ค.',  P1:149.5,P2:34.5,'ท่อกลม':27.3,'บ่ออัด':6.95,'บ่อเท':18.4,'แผ่นพื้น_นว':49.2,'แผ่นทางเท้า':0,'รางระบายน้ำอัด':0,'ขอบคันหิน':0,'บล็อกคัลเวิร์ท':58.15,'รั้วสำเร็จรูป':21.3,'กำแพงกันดิน':14.4,'ผสมเสร็จ':0,'อื่นๆ':0.8,'เสาเข็ม_นป':35.5,'เสาเข็ม_ปท':3.86,'แผ่นพื้น_ปท':15.44},
-  {label:'10 ก.ค.', P1:126.25,P2:52.5,'ท่อกลม':33.4,'บ่ออัด':0,'บ่อเท':11,'แผ่นพื้น_นว':49.4,'แผ่นทางเท้า':0,'รางระบายน้ำอัด':0,'ขอบคันหิน':0,'บล็อกคัลเวิร์ท':56.85,'รั้วสำเร็จรูป':21.1,'กำแพงกันดิน':19.8,'ผสมเสร็จ':0,'อื่นๆ':0.8,'เสาเข็ม_นป':19,'เสาเข็ม_ปท':0,'แผ่นพื้น_ปท':10.42},
-  {label:'11 ก.ค.', P1:0,P2:61.5,'ท่อกลม':72.5,'บ่ออัด':0,'บ่อเท':14.8,'แผ่นพื้น_นว':51.2,'แผ่นทางเท้า':0,'รางระบายน้ำอัด':0,'ขอบคันหิน':4.8,'บล็อกคัลเวิร์ท':61.2,'รั้วสำเร็จรูป':20.1,'กำแพงกันดิน':13.4,'ผสมเสร็จ':0,'อื่นๆ':0.8,'เสาเข็ม_นป':18.5,'เสาเข็ม_ปท':0,'แผ่นพื้น_ปท':25.86},
-  {label:'12 ก.ค.', P1:0,P2:175.5,'ท่อกลม':0,'บ่ออัด':0,'บ่อเท':0,'แผ่นพื้น_นว':0,'แผ่นทางเท้า':0,'รางระบายน้ำอัด':0,'ขอบคันหิน':0,'บล็อกคัลเวิร์ท':0,'รั้วสำเร็จรูป':0,'กำแพงกันดิน':0,'ผสมเสร็จ':0,'อื่นๆ':0,'เสาเข็ม_นป':0,'เสาเข็ม_ปท':0,'แผ่นพื้น_ปท':10.04},
-  {label:'13 ก.ค.', P1:112,P2:0,'ท่อกลม':29.8,'บ่ออัด':0,'บ่อเท':15.3,'แผ่นพื้น_นว':49.4,'แผ่นทางเท้า':0,'รางระบายน้ำอัด':0,'ขอบคันหิน':10.35,'บล็อกคัลเวิร์ท':20.35,'รั้วสำเร็จรูป':21,'กำแพงกันดิน':0,'ผสมเสร็จ':0,'อื่นๆ':0.4,'เสาเข็ม_นป':30,'เสาเข็ม_ปท':6.18,'แผ่นพื้น_ปท':10.04},
-  {label:'14 ก.ค.', P1:85.5,P2:86.5,'ท่อกลม':84.1,'บ่ออัด':0,'บ่อเท':11.4,'แผ่นพื้น_นว':50.2,'แผ่นทางเท้า':0,'รางระบายน้ำอัด':0,'ขอบคันหิน':9.6,'บล็อกคัลเวิร์ท':48.6,'รั้วสำเร็จรูป':20.8,'กำแพงกันดิน':9.5,'ผสมเสร็จ':0,'อื่นๆ':0.4,'เสาเข็ม_นป':29.5,'เสาเข็ม_ปท':0,'แผ่นพื้น_ปท':20.84},
-  {label:'15 ก.ค.', P1:89.25,P2:47.75,'ท่อกลม':46.4,'บ่ออัด':6.8,'บ่อเท':9.1,'แผ่นพื้น_นว':49.3,'แผ่นทางเท้า':0,'รางระบายน้ำอัด':0,'ขอบคันหิน':4.8,'บล็อกคัลเวิร์ท':49.95,'รั้วสำเร็จรูป':21.5,'กำแพงกันดิน':12.7,'ผสมเสร็จ':0,'อื่นๆ':0.4,'เสาเข็ม_นป':24.5,'เสาเข็ม_ปท':5.4,'แผ่นพื้น_ปท':15.44},
-  {label:'16 ก.ค.', P1:70.75,P2:51,'ท่อกลม':39,'บ่ออัด':7.55,'บ่อเท':7.7,'แผ่นพื้น_นว':50.1,'แผ่นทางเท้า':0,'รางระบายน้ำอัด':0,'ขอบคันหิน':5.3,'บล็อกคัลเวิร์ท':21.05,'รั้วสำเร็จรูป':20.9,'กำแพงกันดิน':0,'ผสมเสร็จ':0,'อื่นๆ':0.1,'เสาเข็ม_นป':18,'เสาเข็ม_ปท':0,'แผ่นพื้น_ปท':10.04},
-  {label:'17 ก.ค.', P1:110,P2:54,'ท่อกลม':53.9,'บ่ออัด':6.83,'บ่อเท':10.5,'แผ่นพื้น_นว':50.5,'แผ่นทางเท้า':0,'รางระบายน้ำอัด':1,'ขอบคันหิน':10.1,'บล็อกคัลเวิร์ท':0,'รั้วสำเร็จรูป':22.2,'กำแพงกันดิน':5.65,'ผสมเสร็จ':0,'อื่นๆ':0.4,'เสาเข็ม_นป':18,'เสาเข็ม_ปท':6.95,'แผ่นพื้น_ปท':10.04},
-  {label:'18 ก.ค.', P1:171.25,P2:66.5,'ท่อกลม':50.3,'บ่ออัด':1.6,'บ่อเท':11,'แผ่นพื้น_นว':50.5,'แผ่นทางเท้า':0,'รางระบายน้ำอัด':1.5,'ขอบคันหิน':0,'บล็อกคัลเวิร์ท':20.75,'รั้วสำเร็จรูป':21.1,'กำแพงกันดิน':12.85,'ผสมเสร็จ':0,'อื่นๆ':0,'เสาเข็ม_นป':19.5,'เสาเข็ม_ปท':0,'แผ่นพื้น_ปท':0},
-  {label:'19 ก.ค.', P1:154.5,P2:0,'ท่อกลม':33.3,'บ่ออัด':0,'บ่อเท':0,'แผ่นพื้น_นว':0,'แผ่นทางเท้า':0,'รางระบายน้ำอัด':0,'ขอบคันหิน':0,'บล็อกคัลเวิร์ท':0,'รั้วสำเร็จรูป':0,'กำแพงกันดิน':0,'ผสมเสร็จ':0,'อื่นๆ':0,'เสาเข็ม_นป':0,'เสาเข็ม_ปท':0,'แผ่นพื้น_ปท':0},
-  {label:'20 ก.ค.', P1:123.5,P2:98.25,'ท่อกลม':82.6,'บ่ออัด':0,'บ่อเท':12.7,'แผ่นพื้น_นว':49.8,'แผ่นทางเท้า':0,'รางระบายน้ำอัด':0,'ขอบคันหิน':4.55,'บล็อกคัลเวิร์ท':34.9,'รั้วสำเร็จรูป':21.9,'กำแพงกันดิน':9.65,'ผสมเสร็จ':0,'อื่นๆ':0.4,'เสาเข็ม_นป':39.5,'เสาเข็ม_ปท':7.33,'แผ่นพื้น_ปท':0},
-  {label:'21 ก.ค.', P1:0,P2:120.75,'ท่อกลม':43,'บ่ออัด':0,'บ่อเท':13.4,'แผ่นพื้น_นว':40.4,'แผ่นทางเท้า':0,'รางระบายน้ำอัด':0,'ขอบคันหิน':0,'บล็อกคัลเวิร์ท':49.1,'รั้วสำเร็จรูป':15.7,'กำแพงกันดิน':0,'ผสมเสร็จ':0,'อื่นๆ':0.3,'เสาเข็ม_นป':36,'เสาเข็ม_ปท':0,'แผ่นพื้น_ปท':20.07},
-  {label:'22 ก.ค.', P1:147.25,P2:53.5,'ท่อกลม':80,'บ่ออัด':0,'บ่อเท':8,'แผ่นพื้น_นว':29.6,'แผ่นทางเท้า':0,'รางระบายน้ำอัด':0,'ขอบคันหิน':11.1,'บล็อกคัลเวิร์ท':49.95,'รั้วสำเร็จรูป':22.1,'กำแพงกันดิน':9.2,'ผสมเสร็จ':0,'อื่นๆ':0.3,'เสาเข็ม_นป':35.5,'เสาเข็ม_ปท':0,'แผ่นพื้น_ปท':15.44},
-  {label:'23 ก.ค.', P1:142.75,P2:18.75,'ท่อกลม':121.4,'บ่ออัด':0,'บ่อเท':9.6,'แผ่นพื้น_นว':50.1,'แผ่นทางเท้า':0,'รางระบายน้ำอัด':3.15,'ขอบคันหิน':11.85,'บล็อกคัลเวิร์ท':30.9,'รั้วสำเร็จรูป':20.7,'กำแพงกันดิน':8.45,'ผสมเสร็จ':0,'อื่นๆ':0.3,'เสาเข็ม_นป':11.5,'เสาเข็ม_ปท':3.09,'แผ่นพื้น_ปท':10.42},
-  {label:'24 ก.ค.', P1:116,P2:55,'ท่อกลม':123,'บ่ออัด':6.15,'บ่อเท':10.6,'แผ่นพื้น_นว':50.9,'แผ่นทางเท้า':0,'รางระบายน้ำอัด':2.55,'ขอบคันหิน':9.45,'บล็อกคัลเวิร์ท':50.2,'รั้วสำเร็จรูป':20.6,'กำแพงกันดิน':0,'ผสมเสร็จ':47,'อื่นๆ':0.1,'เสาเข็ม_นป':33,'เสาเข็ม_ปท':0,'แผ่นพื้น_ปท':0},
-  {label:'25 ก.ค.', P1:172,P2:79.5,'ท่อกลม':77.4,'บ่ออัด':0,'บ่อเท':15.1,'แผ่นพื้น_นว':50,'แผ่นทางเท้า':0,'รางระบายน้ำอัด':4.45,'ขอบคันหิน':7.7,'บล็อกคัลเวิร์ท':69.85,'รั้วสำเร็จรูป':20.6,'กำแพงกันดิน':0,'ผสมเสร็จ':0,'อื่นๆ':0.1,'เสาเข็ม_นป':46,'เสาเข็ม_ปท':0,'แผ่นพื้น_ปท':0},
-  {label:'26 ก.ค.', P1:0,P2:145.5,'ท่อกลม':77.4,'บ่ออัด':0,'บ่อเท':0,'แผ่นพื้น_นว':0,'แผ่นทางเท้า':0,'รางระบายน้ำอัด':0,'ขอบคันหิน':0,'บล็อกคัลเวิร์ท':0,'รั้วสำเร็จรูป':0,'กำแพงกันดิน':0,'ผสมเสร็จ':0,'อื่นๆ':0,'เสาเข็ม_นป':0,'เสาเข็ม_ปท':0,'แผ่นพื้น_ปท':0},
-  {label:'27 ก.ค.', P1:58.75,P2:34.5,'ท่อกลม':60.5,'บ่ออัด':0,'บ่อเท':14.4,'แผ่นพื้น_นว':50.1,'แผ่นทางเท้า':0,'รางระบายน้ำอัด':0,'ขอบคันหิน':0,'บล็อกคัลเวิร์ท':67.85,'รั้วสำเร็จรูป':21.4,'กำแพงกันดิน':0,'ผสมเสร็จ':0,'อื่นๆ':0.3,'เสาเข็ม_นป':33.5,'เสาเข็ม_ปท':0,'แผ่นพื้น_ปท':15.44},
-  {label:'28 ก.ค.', P1:57.6,P2:62,'ท่อกลม':97,'บ่ออัด':0,'บ่อเท':14.4,'แผ่นพื้น_นว':49.4,'แผ่นทางเท้า':0,'รางระบายน้ำอัด':0,'ขอบคันหิน':0,'บล็อกคัลเวิร์ท':63.4,'รั้วสำเร็จรูป':20.9,'กำแพงกันดิน':0,'ผสมเสร็จ':6,'อื่นๆ':0.1,'เสาเข็ม_นป':39.5,'เสาเข็ม_ปท':0,'แผ่นพื้น_ปท':0},
-  {label:'29 ก.ค.', P1:55.95,P2:36.5,'ท่อกลม':95.4,'บ่ออัด':0,'บ่อเท':11.7,'แผ่นพื้น_นว':49.4,'แผ่นทางเท้า':0,'รางระบายน้ำอัด':2.4,'ขอบคันหิน':0,'บล็อกคัลเวิร์ท':52.65,'รั้วสำเร็จรูป':21,'กำแพงกันดิน':0,'ผสมเสร็จ':0,'อื่นๆ':0.3,'เสาเข็ม_นป':18,'เสาเข็ม_ปท':0,'แผ่นพื้น_ปท':10.81},
-  {label:'30 ก.ค.', P1:36.75,P2:44.5,'ท่อกลม':100.9,'บ่ออัด':0,'บ่อเท':11.7,'แผ่นพื้น_นว':50.1,'แผ่นทางเท้า':0,'รางระบายน้ำอัด':1.5,'ขอบคันหิน':0,'บล็อกคัลเวิร์ท':90,'รั้วสำเร็จรูป':20.9,'กำแพงกันดิน':0,'ผสมเสร็จ':0,'อื่นๆ':0.1,'เสาเข็ม_นป':0,'เสาเข็ม_ปท':0,'แผ่นพื้น_ปท':26.25},
-  {label:'31 ก.ค.', P1:64.5,P2:71.75,'ท่อกลม':89.3,'บ่ออัด':0,'บ่อเท':14,'แผ่นพื้น_นว':49.5,'แผ่นทางเท้า':0,'รางระบายน้ำอัด':3.5,'ขอบคันหิน':0,'บล็อกคัลเวิร์ท':48.15,'รั้วสำเร็จรูป':21.3,'กำแพงกันดิน':0,'ผสมเสร็จ':0,'อื่นๆ':0.4,'เสาเข็ม_นป':0,'เสาเข็ม_ปท':0,'แผ่นพื้น_ปท':0},
+// วันที่ 1-2 มีข้อมูลจริงจากไฟล์ Google Drive (คิวคอนกรีตประจำวัน เดือน ส.ค.69.xlsx) วันที่เหลือยังไม่มีการบันทึก
+  {label:'1 ส.ค.',  P1:92.75,P2:57.75,'ท่อกลม':95.6,'บ่ออัด':0,'บ่อเท':0,'แผ่นพื้น_นว':0,'แผ่นทางเท้า':0,'รางระบายน้ำอัด':2.35,'ขอบคันหิน':7.05,'บล็อกคัลเวิร์ท':74.45,'รั้วสำเร็จรูป':0,'กำแพงกันดิน':0,'ผสมเสร็จ':0,'อื่นๆ':0,'เสาเข็ม_นป':14.5,'เสาเข็ม_ปท':0,'แผ่นพื้น_ปท':13.9},
+  {label:'2 ส.ค.',  P1:117.5,P2:0,'ท่อกลม':0,'บ่ออัด':0,'บ่อเท':0,'แผ่นพื้น_นว':0,'แผ่นทางเท้า':0,'รางระบายน้ำอัด':0,'ขอบคันหิน':0,'บล็อกคัลเวิร์ท':0,'รั้วสำเร็จรูป':0,'กำแพงกันดิน':0,'ผสมเสร็จ':0,'อื่นๆ':0,'เสาเข็ม_นป':0,'เสาเข็ม_ปท':0,'แผ่นพื้น_ปท':0},
 ];
-for(let d=DATA_DAYS+1;d<=31;d++){const r={label:d+' ก.ค.'};PRODUCTS.forEach(p=>{r[p.key]=0;});DAILY.push(r);}
+for(let d=DATA_DAYS+1;d<=31;d++){const r={label:d+' ส.ค.'};PRODUCTS.forEach(p=>{r[p.key]=0;});DAILY.push(r);}
 
 const FUEL_DAILY = [
-{label:'1 ก.ค.',  backhoe:100,loaderPT:0,  loaderNW:0  },
-  {label:'2 ก.ค.',  backhoe:100,loaderPT:0,  loaderNW:60 },
-  {label:'3 ก.ค.',  backhoe:100,loaderPT:0,  loaderNW:60 },
-  {label:'4 ก.ค.',  backhoe:0,  loaderPT:0,  loaderNW:0  },
-  {label:'5 ก.ค.',  backhoe:100,loaderPT:0,  loaderNW:0  },
-  {label:'6 ก.ค.',  backhoe:100,loaderPT:60, loaderNW:0  },
-  {label:'7 ก.ค.',  backhoe:0,  loaderPT:0,  loaderNW:60 },
-  {label:'8 ก.ค.',  backhoe:100,loaderPT:60, loaderNW:0  },
-  {label:'9 ก.ค.',  backhoe:100,loaderPT:0,  loaderNW:60 },
-  {label:'10 ก.ค.', backhoe:100,loaderPT:60, loaderNW:60 },
-  {label:'11 ก.ค.', backhoe:0,  loaderPT:0,  loaderNW:40 },
-  {label:'12 ก.ค.', backhoe:0,  loaderPT:60, loaderNW:0  },
-  {label:'13 ก.ค.', backhoe:100, loaderPT:0,  loaderNW:0   },
-  {label:'14 ก.ค.', backhoe:100, loaderPT:60, loaderNW:40  },
-  {label:'15 ก.ค.', backhoe:0,   loaderPT:0,  loaderNW:60  },
-  {label:'16 ก.ค.', backhoe:100, loaderPT:60, loaderNW:0   },
-  {label:'17 ก.ค.', backhoe:0,   loaderPT:0,  loaderNW:40  },
-  {label:'18 ก.ค.', backhoe:100, loaderPT:60, loaderNW:0   },
-  {label:'19 ก.ค.', backhoe:100, loaderPT:0,  loaderNW:0   },
-  {label:'20 ก.ค.', backhoe:100, loaderPT:60, loaderNW:60  },
-  {label:'21 ก.ค.', backhoe:0,   loaderPT:60, loaderNW:0   },
-  {label:'22 ก.ค.', backhoe:100, loaderPT:0,  loaderNW:60  },
-  {label:'23 ก.ค.', backhoe:100, loaderPT:60, loaderNW:40  },
-  {label:'24 ก.ค.', backhoe:100, loaderPT:0,  loaderNW:0   },
-  {label:'25 ก.ค.', backhoe:100, loaderPT:60, loaderNW:60  },
-  {label:'26 ก.ค.', backhoe:0,   loaderPT:60, loaderNW:0   },
-  {label:'27 ก.ค.', backhoe:100, loaderPT:60, loaderNW:35  },
-  {label:'28 ก.ค.', backhoe:0,   loaderPT:0,  loaderNW:0   },
-  {label:'29 ก.ค.', backhoe:100, loaderPT:60, loaderNW:40  },
-  {label:'30 ก.ค.', backhoe:0,   loaderPT:0,  loaderNW:40  },
-  {label:'31 ก.ค.', backhoe:100, loaderPT:60, loaderNW:0   },
+// วันที่ 1-2 มีข้อมูลจริงจากไฟล์ Google Drive (เบิกน้ำมัน สค.69) วันที่เหลือยังไม่มีการบันทึก
+  {label:'1 ส.ค.',  backhoe:100,loaderPT:60, loaderNW:0 },
+  {label:'2 ส.ค.',  backhoe:100,loaderPT:0,  loaderNW:0 },
 ];
-for(let d=DATA_DAYS+1;d<=31;d++)FUEL_DAILY.push({label:d+' ก.ค.',backhoe:0,loaderPT:0,loaderNW:0});
+for(let d=DATA_DAYS+1;d<=31;d++)FUEL_DAILY.push({label:d+' ส.ค.',backhoe:0,loaderPT:0,loaderNW:0});
 
 /* ══ HELPERS ═════════════════════════════════════════════ */
 const fmtN=(v)=>(+(v||0)).toLocaleString('th-TH',{minimumFractionDigits:2,maximumFractionDigits:2});
@@ -494,7 +437,7 @@ function buildCalendar(){
   for(let i=0;i<3;i++)html+=`<div class="cal-day"></div>`;
   for(let day=1;day<=31;day++){
     const idx=day-1, hasData=idx<DATA_DAYS;
-    const tip=hasData?`${DAILY[idx].label} · รวม ${fmtN(dayTotal(DAILY[idx]))} ลบ.ม.`:`${day} ก.ค. · ยังไม่มีข้อมูล`;
+    const tip=hasData?`${DAILY[idx].label} · รวม ${fmtN(dayTotal(DAILY[idx]))} ลบ.ม.`:`${day} ส.ค. · ยังไม่มีข้อมูล`;
     if(hasData)html+=`<div class="cal-day has-data" data-idx="${idx}" onclick="selectDate(${idx})" title="${tip}">${day}</div>`;
     else html+=`<div class="cal-day" title="${tip}">${day}</div>`;
   }
@@ -513,7 +456,7 @@ function selectDate(idx){
 /* ══ NOTICE ══════════════════════════════════════════════ */
 function updateNotice(){
   const el=document.getElementById('noticeText');
-  el.textContent=selectedDay==='all'?`แสดงคิวรวมสะสม 1–${DATA_DAYS} กรกฎาคม 2569 (มีข้อมูล ${DATA_DAYS} วัน จาก 31 วัน)`:`แสดงคิววันที่ ${DAILY[selectedDay].label} 2569`;
+  el.textContent=selectedDay==='all'?`แสดงคิวรวมสะสม 1–${DATA_DAYS} สิงหาคม 2569 (มีข้อมูล ${DATA_DAYS} วัน จาก 31 วัน)`:`แสดงคิววันที่ ${DAILY[selectedDay].label} 2569`;
 }
 
 /* ══ DASHBOARD KPI ═══════════════════════════════════════ */
@@ -607,7 +550,7 @@ function renderExec(){
   const maxIdx=allTots.indexOf(Math.max(...allTots));
   const avgDay=mTotal/DATA_DAYS;
   document.getElementById('execKpiRow').innerHTML=[
-    {label:'คิวรวมสะสม',sub:`1–${DATA_DAYS} ก.ค. 2569`,val:fmtN(mTotal),unit:'ลบ.ม.',accent:'#f0a500'},
+    {label:'คิวรวมสะสม',sub:`1–${DATA_DAYS} ส.ค. 2569`,val:fmtN(mTotal),unit:'ลบ.ม.',accent:'#f0a500'},
     {label:'ค่าเฉลี่ยต่อวัน',sub:`จาก ${DATA_DAYS} วัน`,val:fmtN(avgDay),unit:'ลบ.ม./วัน',accent:'#3b82f6'},
     {label:'วันผลิตสูงสุด',sub:DAILY[maxIdx].label,val:fmtN(Math.max(...allTots)),unit:'ลบ.ม.',accent:'#27ae60'},
     {label:'ข้อมูลครบ',sub:'จาก 31 วันของเดือน',val:DATA_DAYS,unit:'/ 31 วัน',accent:'#8e44ad'},
@@ -652,7 +595,7 @@ function renderExec(){
   const fBH=FUEL_DAILY.reduce((s,r)=>s+(r.backhoe||0),0);
   const fPT=FUEL_DAILY.reduce((s,r)=>s+(r.loaderPT||0),0);
   const fNW=FUEL_DAILY.reduce((s,r)=>s+(r.loaderNW||0),0);
-  document.getElementById('execFuelSummary').innerHTML=[{lbl:'รถแบคโฮ JCB (พัทยา)',val:fBH,rate:'0.70',good:true},{lbl:'รถตัก (พัทยา)',val:fPT,rate:'0.62',good:true},{lbl:'รถตัก (นาวัง)',val:fNW,rate:'0.34',good:true}].map(r=>`<div class="fuel-rate"><div><div style="font-size:12px;font-weight:600;color:#2c3e50">${r.lbl}</div><div style="font-size:10px;color:#8a96b0">${r.val.toLocaleString('th-TH')} ลิตร</div></div><div style="font-size:14px;font-weight:700;color:${r.good?'#27ae60':'#ef4444'}">${r.rate} ล./คิว</div></div>`).join('')+`<div style="padding:8px 0;border-top:2px solid #f0a500;margin-top:4px;display:flex;justify-content:space-between;align-items:baseline"><div style="font-size:12px;font-weight:700;color:#1a3a6b">รวมน้ำมันทั้งหมด</div><div style="font-size:16px;font-weight:800;color:#1a3a6b">${(fBH+fPT+fNW).toLocaleString('th-TH')} ลิตร</div></div>`;
+  document.getElementById('execFuelSummary').innerHTML=[{lbl:'รถแบคโฮ JCB (พัทยา)',val:fBH,rate:'0.95',good:true},{lbl:'รถตัก (พัทยา)',val:fPT,rate:'1.04',good:true},{lbl:'รถตัก (นาวัง)',val:fNW,rate:'8.51',good:false}].map(r=>`<div class="fuel-rate"><div><div style="font-size:12px;font-weight:600;color:#2c3e50">${r.lbl}</div><div style="font-size:10px;color:#8a96b0">${r.val.toLocaleString('th-TH')} ลิตร</div></div><div style="font-size:14px;font-weight:700;color:${r.good?'#27ae60':'#ef4444'}">${r.rate} ล./คิว</div></div>`).join('')+`<div style="padding:8px 0;border-top:2px solid #f0a500;margin-top:4px;display:flex;justify-content:space-between;align-items:baseline"><div style="font-size:12px;font-weight:700;color:#1a3a6b">รวมน้ำมันทั้งหมด</div><div style="font-size:16px;font-weight:800;color:#1a3a6b">${(fBH+fPT+fNW).toLocaleString('th-TH')} ลิตร</div></div>`;
 
   // Observations
   const p2Days=DAILY.slice(0,DATA_DAYS).filter(d=>(d['P2']||0)>0).length;
@@ -663,8 +606,8 @@ function renderExec(){
     {icon:'📅',text:`วันผลิตสูงสุด: <strong>${DAILY[maxIdx].label}</strong> รวม ${fmtN(Math.max(...allTots))} ลบ.ม.`},
     {icon:'🏭',text:`นาวัง ผลิตสูงสุด ${fmtN(locTotal(cum,'nawg'))} ลบ.ม. (${mTotal>0?((locTotal(cum,'nawg')/mTotal)*100).toFixed(1):0}% ของเดือน)`},
     {icon:p2Days<=2?'⚠️':'✅',text:`P2 (พัทยา) ผลิต <strong>${p2Days} วัน</strong> จาก ${DATA_DAYS} วัน รวม ${fmtN(cum['P2']||0)} ลบ.ม.`},
-    {icon:'⛽',text:`น้ำมันรวม ${(fBH+fPT+fNW).toLocaleString('th-TH')} ลิตร — รถตักนาวัง ประหยัดสุด <strong>0.39 ล./คิว</strong>`},
-    {icon:'📊',text:`รอข้อมูลอีก <strong>${31-DATA_DAYS} วัน</strong> (${DATA_DAYS+1}–31 ก.ค.)`},
+    {icon:'⛽',text:`น้ำมันรวม ${(fBH+fPT+fNW).toLocaleString('th-TH')} ลิตร — ข้อมูลยังมีแค่ ${DATA_DAYS} วัน <strong>ยังสรุปประสิทธิภาพน้ำมันไม่ได้ชัดเจน</strong>`},
+    {icon:'📊',text:`รอข้อมูลอีก <strong>${31-DATA_DAYS} วัน</strong> (${DATA_DAYS+1}–31 ส.ค.)`},
   ].map(o=>`<div class="obs-item"><span style="font-size:16px;flex-shrink:0;line-height:1.4">${o.icon}</span><span>${o.text}</span></div>`).join('');
 }
 
