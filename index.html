@@ -158,18 +158,18 @@ canvas{display:block;max-width:100%}
     <div class="exec-grid-3">
       <div class="exec-card" style="background:#fffbeb;border-top:4px solid #f59e0b">
         <div style="font-size:11px;color:#8a96b0;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">&#9889; อัตราใช้น้ำมัน &middot; รถแบคโฮ JCB (พัทยา)</div>
-        <div style="font-size:24px;font-weight:800;color:#1a3a6b">0.95<span style="font-size:12px;font-weight:400;color:#8a96b0;margin-left:2px">ล./คิว</span></div>
-        <div style="font-size:11px;color:#8a96b0;margin-top:4px">คิว 210.25 ลบ.ม. &middot; น้ำมัน 200 ลิตร</div>
+        <div style="font-size:24px;font-weight:800;color:#1a3a6b"><span id="rateBHval">—</span><span style="font-size:12px;font-weight:400;color:#8a96b0;margin-left:2px">ล./คิว</span></div>
+        <div style="font-size:11px;color:#8a96b0;margin-top:4px" id="rateBHsub">&mdash;</div>
       </div>
       <div class="exec-card" style="background:#f0fdf4;border-top:4px solid #3b82f6">
         <div style="font-size:11px;color:#8a96b0;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">&#9889; อัตราใช้น้ำมัน &middot; รถตัก (พัทยา)</div>
-        <div style="font-size:24px;font-weight:800;color:#27ae60">1.04<span style="font-size:12px;font-weight:400;color:#8a96b0;margin-left:2px">ล./คิว</span></div>
-        <div style="font-size:11px;color:#8a96b0;margin-top:4px">คิว 57.75 ลบ.ม. &middot; น้ำมัน 60 ลิตร</div>
+        <div style="font-size:24px;font-weight:800;color:#27ae60"><span id="ratePTval">—</span><span style="font-size:12px;font-weight:400;color:#8a96b0;margin-left:2px">ล./คิว</span></div>
+        <div style="font-size:11px;color:#8a96b0;margin-top:4px" id="ratePTsub">&mdash;</div>
       </div>
       <div class="exec-card" style="background:#f0fdf4;border-top:4px solid #22c55e">
         <div style="font-size:11px;color:#8a96b0;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">&#9889; อัตราใช้น้ำมัน &middot; รถตัก (นาวัง)</div>
-        <div style="font-size:24px;font-weight:800;color:#e67e22">8.51<span style="font-size:12px;font-weight:400;color:#8a96b0;margin-left:2px">ล./คิว</span></div>
-        <div style="font-size:11px;color:#8a96b0;margin-top:4px">คิว 7.05 ลบ.ม. &middot; น้ำมัน 60 ลิตร</div>
+        <div style="font-size:24px;font-weight:800;color:#e67e22"><span id="rateNWval">—</span><span style="font-size:12px;font-weight:400;color:#8a96b0;margin-left:2px">ล./คิว</span></div>
+        <div style="font-size:11px;color:#8a96b0;margin-top:4px" id="rateNWsub">&mdash;</div>
       </div>
     </div>
     <div class="chart-card" style="margin-bottom:14px"><h3 id="fuelChartTitle">&#9981; การเบิกน้ำมันรายวัน (ลิตร)</h3><div class="chart-wrap"><canvas id="fuelChart"></canvas></div></div>
@@ -538,11 +538,32 @@ function updateDetailTable(data){
 }
 
 /* ══ FUEL ════════════════════════════════════════════════ */
+/* สินค้าที่รถตัก (นาวัง) ให้บริการจริง — ไม่รวม ท่อกลม/บ่ออัด/รางระบายน้ำอัด/บล็อกคัลเวิร์ท/กำแพงกันดิน/อื่นๆ */
+const NW_LOADER_PRODUCTS=['บ่อเท','แผ่นพื้น_นว','รั้วสำเร็จรูป','แผ่นทางเท้า','ขอบคันหิน','ผสมเสร็จ'];
+/* คำนวณอัตราใช้น้ำมันจากข้อมูลจริง (สะสม 1–DATA_DAYS) — น้ำมันสะสม ÷ คิวสะสมของงานที่รถคันนั้นรับผิดชอบ */
+function fuelStats(){
+  const days=DAILY.slice(0,DATA_DAYS);
+  const cum=(k)=>days.reduce((s,d)=>s+(+(d[k]||0)),0);
+  const f=FUEL_DAILY.slice(0,DATA_DAYS);
+  const bh=f.reduce((s,r)=>s+(r.backhoe||0),0);
+  const pt=f.reduce((s,r)=>s+(r.loaderPT||0),0);
+  const nw=f.reduce((s,r)=>s+(r.loaderNW||0),0);
+  const qBH=cum('P1'), qPT=cum('P2'), qNW=NW_LOADER_PRODUCTS.reduce((s,k)=>s+cum(k),0);
+  const rate=(fuel,q)=>q>0?fuel/q:null;
+  return {bh,pt,nw,tot:bh+pt+nw,qBH,qPT,qNW,
+          rBH:rate(bh,qBH), rPT:rate(pt,qPT), rNW:rate(nw,qNW)};
+}
+function updateFuelRateCards(){
+  const s=fuelStats();
+  [['BH',s.rBH,s.qBH,s.bh],['PT',s.rPT,s.qPT,s.pt],['NW',s.rNW,s.qNW,s.nw]].forEach(([id,r,q,fuel])=>{
+    document.getElementById('rate'+id+'val').textContent = r===null?'—':f2(r);
+    document.getElementById('rate'+id+'sub').innerHTML = `คิว ${fmtN(q)} ลบ.ม. &middot; น้ำมัน ${fmtI(fuel)} ลิตร`;
+  });
+}
 function updateFuelKPI(){
-  const bh=FUEL_DAILY.reduce((s,r)=>s+(r.backhoe||0),0);
-  const pt=FUEL_DAILY.reduce((s,r)=>s+(r.loaderPT||0),0);
-  const nw=FUEL_DAILY.reduce((s,r)=>s+(r.loaderNW||0),0);
-  const tot=bh+pt+nw;
+  const s=fuelStats();
+  const bh=s.bh, pt=s.pt, nw=s.nw, tot=s.tot;
+  updateFuelRateCards();
   document.getElementById('fuelKpiRow').innerHTML=[
     {label:'น้ำมันรวมทั้งหมด',sub:'ทุกรายการ',val:fmtI(tot),unit:'ลิตร',accent:'#ef4444'},
     {label:'รถแบคโฮ JCB',sub:'พัทยา',val:fmtI(bh),unit:'ลิตร',accent:'#f59e0b'},
@@ -625,11 +646,10 @@ function renderExec(){
   const tLabels=DAILY.slice(0,DATA_DAYS).map(d=>d.label);
   drawStackedBar('execTrendChart',tLabels,Object.entries(LOCATIONS).map(([code,loc])=>({label:loc.label,data:DAILY.slice(0,DATA_DAYS).map(d=>+locTotal(d,code).toFixed(2)),color:loc.color})),200);
 
-  // Fuel summary
-  const fBH=FUEL_DAILY.reduce((s,r)=>s+(r.backhoe||0),0);
-  const fPT=FUEL_DAILY.reduce((s,r)=>s+(r.loaderPT||0),0);
-  const fNW=FUEL_DAILY.reduce((s,r)=>s+(r.loaderNW||0),0);
-  document.getElementById('execFuelSummary').innerHTML=[{lbl:'รถแบคโฮ JCB (พัทยา)',val:fBH,rate:'0.95',good:true},{lbl:'รถตัก (พัทยา)',val:fPT,rate:'1.04',good:true},{lbl:'รถตัก (นาวัง)',val:fNW,rate:'8.51',good:false}].map(r=>`<div class="fuel-rate"><div><div style="font-size:12px;font-weight:600;color:#2c3e50">${r.lbl}</div><div style="font-size:10px;color:#8a96b0">${r.val.toLocaleString('th-TH')} ลิตร</div></div><div style="font-size:14px;font-weight:700;color:${r.good?'#27ae60':'#ef4444'}">${r.rate} ล./คิว</div></div>`).join('')+`<div style="padding:8px 0;border-top:2px solid #f0a500;margin-top:4px;display:flex;justify-content:space-between;align-items:baseline"><div style="font-size:12px;font-weight:700;color:#1a3a6b">รวมน้ำมันทั้งหมด</div><div style="font-size:16px;font-weight:800;color:#1a3a6b">${(fBH+fPT+fNW).toLocaleString('th-TH')} ลิตร</div></div>`;
+  // Fuel summary — อัตราคำนวณจากข้อมูลจริง ไม่ใช่ค่าคงที่
+  const fs=fuelStats();
+  const fBH=fs.bh, fPT=fs.pt, fNW=fs.nw;
+  document.getElementById('execFuelSummary').innerHTML=[{lbl:'รถแบคโฮ JCB (พัทยา)',val:fBH,rate:fs.rBH},{lbl:'รถตัก (พัทยา)',val:fPT,rate:fs.rPT},{lbl:'รถตัก (นาวัง)',val:fNW,rate:fs.rNW}].map(r=>({...r,good:r.rate!==null&&r.rate<=1.5,rate:r.rate===null?'—':f2(r.rate)})).map(r=>`<div class="fuel-rate"><div><div style="font-size:12px;font-weight:600;color:#2c3e50">${r.lbl}</div><div style="font-size:10px;color:#8a96b0">${r.val.toLocaleString('th-TH')} ลิตร</div></div><div style="font-size:14px;font-weight:700;color:${r.good?'#27ae60':'#ef4444'}">${r.rate} ล./คิว</div></div>`).join('')+`<div style="padding:8px 0;border-top:2px solid #f0a500;margin-top:4px;display:flex;justify-content:space-between;align-items:baseline"><div style="font-size:12px;font-weight:700;color:#1a3a6b">รวมน้ำมันทั้งหมด</div><div style="font-size:16px;font-weight:800;color:#1a3a6b">${(fBH+fPT+fNW).toLocaleString('th-TH')} ลิตร</div></div>`;
 
   // Observations
   const p2Days=DAILY.slice(0,DATA_DAYS).filter(d=>(d['P2']||0)>0).length;
