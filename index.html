@@ -418,19 +418,24 @@ function drawStackedBar(id,labels,datasets,h){
   }
 
   // Stacked bars
+  const hitboxes=[];
   labels.forEach((lbl,i)=>{
     let sy=pad.t+cH;
     const x=pad.l+gap*i+gap/2-bw/2;
+    const segs=[];
     datasets.forEach(ds=>{
       const v=ds.data[i]||0;
       if(v<0.5)return;
       const bh=(v/max)*cH;
+      const y=sy-bh;
       ctx.fillStyle=ds.color+'cc';
-      ctx.fillRect(x,sy-bh,bw,bh);
+      ctx.fillRect(x,y,bw,bh);
       ctx.strokeStyle=ds.color; ctx.lineWidth=0.8;
-      ctx.strokeRect(x,sy-bh,bw,bh);
+      ctx.strokeRect(x,y,bw,bh);
+      segs.push({label:ds.label,value:v,color:ds.color});
       sy-=bh;
     });
+    hitboxes.push({x0:x,x1:x+bw,label:lbl,total:totals[i],segs});
     // X label — skip if crowded
     if(i%labelStep===0){
       ctx.save();
@@ -456,6 +461,47 @@ function drawStackedBar(id,labels,datasets,h){
     ctx.fillStyle='#6b7a99'; ctx.font='9px sans-serif'; ctx.textAlign='left'; ctx.textBaseline='middle';
     ctx.fillText(ds.label.length>12?ds.label.slice(0,12)+'…':ds.label,lx+13,ly-3);
   });
+
+  attachBarTooltip(id,hitboxes);
+}
+
+/* ══ HOVER TOOLTIP (stacked-bar / trend charts) ═════════════ */
+function ensureTooltipEl(){
+  let tip=document.getElementById('chartTooltip');
+  if(!tip){
+    tip=document.createElement('div');
+    tip.id='chartTooltip';
+    tip.style.cssText='position:fixed;pointer-events:none;z-index:9999;background:#1a3a6b;color:#fff;font-size:11px;line-height:1.6;padding:8px 11px;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,.22);display:none;max-width:230px;white-space:nowrap';
+    document.body.appendChild(tip);
+  }
+  return tip;
+}
+
+function attachBarTooltip(id,hitboxes){
+  const el=document.getElementById(id);
+  if(!el)return;
+  const tip=ensureTooltipEl();
+  el.style.cursor='crosshair';
+  el.onmousemove=(e)=>{
+    const rect=el.getBoundingClientRect();
+    const mx=e.clientX-rect.left;
+    const bar=hitboxes.find(b=>mx>=b.x0-2&&mx<=b.x1+2);
+    if(!bar||bar.total<=0){tip.style.display='none';return;}
+    let html=`<div style="font-weight:800;margin-bottom:5px;color:#f0a500">${bar.label}</div>`;
+    bar.segs.forEach(s=>{
+      html+=`<div style="display:flex;justify-content:space-between;gap:14px"><span style="opacity:.85">&#9679; ${s.label}</span><strong>${fmtN(s.value)}</strong></div>`;
+    });
+    html+=`<div style="border-top:1px solid rgba(255,255,255,.28);margin-top:5px;padding-top:5px;display:flex;justify-content:space-between;gap:14px"><span>รวม</span><strong>${fmtN(bar.total)}</strong></div>`;
+    tip.innerHTML=html;
+    tip.style.display='block';
+    const tw=tip.offsetWidth||160, th=tip.offsetHeight||60;
+    let left=e.clientX+16, top=e.clientY-th-12;
+    if(left+tw>window.innerWidth-8) left=e.clientX-tw-16;
+    if(top<8) top=e.clientY+16;
+    tip.style.left=left+'px';
+    tip.style.top=top+'px';
+  };
+  el.onmouseleave=()=>{tip.style.display='none';};
 }
 
 /* ══ STATE ════════════════════════════════════════════════ */
