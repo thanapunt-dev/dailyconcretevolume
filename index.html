@@ -92,7 +92,7 @@ canvas{display:block;max-width:100%}
       <p>สิงหาคม 2569</p>
     </div>
   </div>
-  <div class="hdr-meta">อัปเดต: 24 ส.ค. 2569<br>ข้อมูลครบ 24 วัน (เดือนยังไม่สมบูรณ์)</div>
+  <div class="hdr-meta">อัปเดต: 27 ส.ค. 2569<br>ข้อมูลครบ 27 วัน (เดือนยังไม่สมบูรณ์)</div>
 </header>
 <nav class="nav">
   <button class="nav-btn" id="navExec" onclick="setView('exec')">&#128203; สรุปผู้บริหาร</button>
@@ -210,11 +210,11 @@ const PRODUCTS = [
   {key:'เสาเข็ม_ปท',     label:'เสาเข็ม',        loc:'ptum',group:'เสาเข็ม'},
   {key:'แผ่นพื้น_ปท',    label:'แผ่นพื้น',       loc:'ptum',group:'แผ่น'},
 ];
-const DATA_DAYS = 24;
+const DATA_DAYS = 27;
 
 /* ══ DATA ════════════════════════════════════════════════ */
 const DAILY = [
-// วันที่ 1-24 มีข้อมูลจริงจากไฟล์ Google Drive (คิวคอนกรีตประจำวัน เดือน ส.ค.69.xlsx) วันที่เหลือยังไม่มีการบันทึก
+// วันที่ 1-27 มีข้อมูลจริงจากไฟล์ Google Drive (คิวคอนกรีตประจำวัน เดือน ส.ค.69.xlsx) วันที่เหลือยังไม่มีการบันทึก
   {label:'1 ส.ค.', P1:92.75,P2:57.75,'ท่อกลม':95.6,'บ่ออัด':0,'บ่อเท':0,'แผ่นพื้น_นว':0,'แผ่นทางเท้า':0,'รางระบายน้ำอัด':2.35,'ขอบคันหิน':7.05,'บล็อกคัลเวิร์ท':74.45,'รั้วสำเร็จรูป':0,'กำแพงกันดิน':0,'ผสมเสร็จ':0,'อื่นๆ':0,'เสาเข็ม_นป':14.5,'เสาเข็ม_ปท':0,'แผ่นพื้น_ปท':13.9},
   {label:'2 ส.ค.', P1:117.5,P2:0,'ท่อกลม':0,'บ่ออัด':0,'บ่อเท':0,'แผ่นพื้น_นว':0,'แผ่นทางเท้า':0,'รางระบายน้ำอัด':0,'ขอบคันหิน':0,'บล็อกคัลเวิร์ท':0,'รั้วสำเร็จรูป':0,'กำแพงกันดิน':0,'ผสมเสร็จ':0,'อื่นๆ':0,'เสาเข็ม_นป':0,'เสาเข็ม_ปท':0,'แผ่นพื้น_ปท':0},
   {label:'3 ส.ค.', P1:110,P2:55.75,'ท่อกลม':46.8,'บ่ออัด':0,'บ่อเท':13.6,'แผ่นพื้น_นว':49.1,'แผ่นทางเท้า':0,'รางระบายน้ำอัด':3,'ขอบคันหิน':12.5,'บล็อกคัลเวิร์ท':97.8,'รั้วสำเร็จรูป':20.5,'กำแพงกันดิน':0,'ผสมเสร็จ':0,'อื่นๆ':0.3,'เสาเข็ม_นป':14,'เสาเข็ม_ปท':0,'แผ่นพื้น_ปท':24.7},
@@ -239,11 +239,14 @@ const DAILY = [
   {label:'22 ส.ค.',P1:161.75,P2:91.5,'ท่อกลม':46.8,'บ่ออัด':8.68,'บ่อเท':1.8,'แผ่นพื้น_นว':50.2,'แผ่นทางเท้า':0,'รางระบายน้ำอัด':0,'ขอบคันหิน':2.45,'บล็อกคัลเวิร์ท':27.5,'รั้วสำเร็จรูป':22.2,'กำแพงกันดิน':4.65,'ผสมเสร็จ':0,'อื่นๆ':0.3,'เสาเข็ม_นป':19,'เสาเข็ม_ปท':0,'แผ่นพื้น_ปท':0},
   {label:'23 ส.ค.',P1:105,P2:0,'ท่อกลม':0,'บ่ออัด':0,'บ่อเท':0,'แผ่นพื้น_นว':0,'แผ่นทางเท้า':0,'รางระบายน้ำอัด':0,'ขอบคันหิน':0,'บล็อกคัลเวิร์ท':0,'รั้วสำเร็จรูป':0,'กำแพงกันดิน':0,'ผสมเสร็จ':0,'อื่นๆ':0,'เสาเข็ม_นป':0,'เสาเข็ม_ปท':0,'แผ่นพื้น_ปท':0},
   {label:'24 ส.ค.',P1:138,P2:115,'ท่อกลม':15.5,'บ่ออัด':9.45,'บ่อเท':4.1,'แผ่นพื้น_นว':50.7,'แผ่นทางเท้า':0,'รางระบายน้ำอัด':0,'ขอบคันหิน':0,'บล็อกคัลเวิร์ท':40.6,'รั้วสำเร็จรูป':21.1,'กำแพงกันดิน':0,'ผสมเสร็จ':0,'อื่นๆ':0.3,'เสาเข็ม_นป':22,'เสาเข็ม_ปท':11.97,'แผ่นพื้น_ปท':0},
+  {label:'25 ส.ค.',P1:114.5,P2:75.75,'ท่อกลม':21.6,'บ่ออัด':9.55,'บ่อเท':6.2,'แผ่นพื้น_นว':49.7,'รางระบายน้ำอัด':0,'บล็อกคัลเวิร์ท':32.75,'รั้วสำเร็จรูป':21.4,'กำแพงกันดิน':0,'แผ่นทางเท้า':0,'ขอบคันหิน':6.5,'ผสมเสร็จ':0,'อื่นๆ':0,'เสาเข็ม_นป':17,'เสาเข็ม_ปท':0,'แผ่นพื้น_ปท':10.81},
+  {label:'26 ส.ค.',P1:128.75,P2:66,'ท่อกลม':74.9,'บ่ออัด':9.45,'บ่อเท':6.3,'แผ่นพื้น_นว':50,'รางระบายน้ำอัด':0,'บล็อกคัลเวิร์ท':75.05,'รั้วสำเร็จรูป':21.4,'กำแพงกันดิน':0.9,'แผ่นทางเท้า':0,'ขอบคันหิน':5.75,'ผสมเสร็จ':5.5,'อื่นๆ':0,'เสาเข็ม_นป':16,'เสาเข็ม_ปท':32.04,'แผ่นพื้น_ปท':0},
+  {label:'27 ส.ค.',P1:184.5,P2:83.25,'ท่อกลม':56.1,'บ่ออัด':6.65,'บ่อเท':11.1,'แผ่นพื้น_นว':50.3,'รางระบายน้ำอัด':0,'บล็อกคัลเวิร์ท':15.4,'รั้วสำเร็จรูป':21.6,'กำแพงกันดิน':0,'แผ่นทางเท้า':0,'ขอบคันหิน':5.65,'ผสมเสร็จ':0,'อื่นๆ':0.3,'เสาเข็ม_นป':16,'เสาเข็ม_ปท':0,'แผ่นพื้น_ปท':10.42},
 ];
 for(let d=DATA_DAYS+1;d<=31;d++){const r={label:d+' ส.ค.'};PRODUCTS.forEach(p=>{r[p.key]=0;});DAILY.push(r);}
 
 const FUEL_DAILY = [
-// วันที่ 1-24 มีข้อมูลจริงจากไฟล์ Google Drive (เบิกน้ำมัน สค.69) วันที่เหลือยังไม่มีการบันทึก
+// วันที่ 1-27 มีข้อมูลจริงจากไฟล์ Google Drive (เบิกน้ำมัน สค.69) วันที่เหลือยังไม่มีการบันทึก
   {label:'1 ส.ค.', backhoe:100,loaderPT:60,loaderNW:0},
   {label:'2 ส.ค.', backhoe:100,loaderPT:0,loaderNW:0},
   {label:'3 ส.ค.', backhoe:0,loaderPT:0,loaderNW:60},
@@ -268,6 +271,9 @@ const FUEL_DAILY = [
   {label:'22 ส.ค.',backhoe:100,loaderPT:60,loaderNW:0},
   {label:'23 ส.ค.',backhoe:0,  loaderPT:0, loaderNW:0},
   {label:'24 ส.ค.',backhoe:100,loaderPT:60,loaderNW:40},
+  {label:'25 ส.ค.',backhoe:0,  loaderPT:0, loaderNW:40},
+  {label:'26 ส.ค.',backhoe:100,loaderPT:60,loaderNW:40},
+  {label:'27 ส.ค.',backhoe:100,loaderPT:60,loaderNW:0},
 ];
 for(let d=DATA_DAYS+1;d<=31;d++)FUEL_DAILY.push({label:d+' ส.ค.',backhoe:0,loaderPT:0,loaderNW:0});
 
@@ -451,15 +457,22 @@ function drawStackedBar(id,labels,datasets,h){
   ctx.strokeStyle='#dce3ee'; ctx.lineWidth=1.5;
   ctx.beginPath();ctx.moveTo(pad.l,pad.t);ctx.lineTo(pad.l,pad.t+cH);ctx.lineTo(W-pad.r,pad.t+cH);ctx.stroke();
 
-  // Legend
+  // Legend — truncate only if the label actually can't fit the space available
   const legCount=datasets.length;
   const legItemW=Math.max(80,(W-pad.l)/legCount);
+  ctx.font='9px sans-serif';
   datasets.forEach((ds,i)=>{
     const lx=pad.l+legItemW*i;
     const ly=H-10;
     ctx.fillStyle=ds.color; ctx.fillRect(lx,ly-8,10,9);
-    ctx.fillStyle='#6b7a99'; ctx.font='9px sans-serif'; ctx.textAlign='left'; ctx.textBaseline='middle';
-    ctx.fillText(ds.label.length>12?ds.label.slice(0,12)+'…':ds.label,lx+13,ly-3);
+    ctx.fillStyle='#6b7a99'; ctx.textAlign='left'; ctx.textBaseline='middle';
+    const maxW=legItemW-16;
+    let label=ds.label;
+    if(ctx.measureText(label).width>maxW){
+      while(label.length>1&&ctx.measureText(label+'…').width>maxW)label=label.slice(0,-1);
+      label+='…';
+    }
+    ctx.fillText(label,lx+13,ly-3);
   });
 
   attachBarTooltip(id,hitboxes);
@@ -517,7 +530,10 @@ function setView(v){
   });
   document.getElementById('calBar').style.display=v==='exec'?'none':'flex';
   document.getElementById('noticeBar').style.display=v==='exec'?'none':'flex';
+  // Canvases drawn while their tab was hidden lock in a fallback width — redraw now that the tab is visible.
   if(v==='exec') renderExec();
+  if(v==='dash'){ updateBarChart(getDisplayData()); updateDonutChart(getDisplayData()); buildTrendChart(); }
+  if(v==='fuel') buildFuelChart();
 }
 
 /* ══ CALENDAR ════════════════════════════════════════════ */
