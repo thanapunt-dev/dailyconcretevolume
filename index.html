@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Dashboard คิวคอนกรีต สิงหาคม 2569</title>
+<title>Dashboard คิวคอนกรีตประจำวัน</title>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Segoe UI','Helvetica Neue',sans-serif;background:#f7f1e6;color:#2c3e50;font-size:14px;position:relative}
@@ -16,6 +16,10 @@ body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;op
 .nav{background:#fff;border-bottom:1px solid #dce3ee;padding:0 24px;display:flex;gap:0}
 .nav-btn{padding:11px 20px;font-size:13px;font-weight:600;cursor:pointer;background:none;border:none;border-bottom:3px solid transparent;color:#8a96b0;transition:all .15s}
 .nav-btn.active{color:#1a3a6b;border-bottom-color:#1a3a6b}
+.month-bar{background:#f7f9fc;border-bottom:1px solid #dce3ee;padding:8px 24px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.month-btn{padding:6px 16px;border-radius:20px;border:1.5px solid #c8d0e0;background:#fff;color:#1a3a6b;font-size:12px;font-weight:700;cursor:pointer;transition:all .15s}
+.month-btn:hover{border-color:#1a3a6b}
+.month-btn.active{background:#1a3a6b;color:#fff;border-color:#1a3a6b}
 .cal-bar{background:#fff;border-bottom:1px solid #dce3ee;padding:10px 24px;display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap}
 .cal-all-btn{width:60px;height:60px;border-radius:10px;border:1.5px solid #c8d0e0;background:#f7f9fc;color:#1a3a6b;font-size:10px;font-weight:700;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;transition:all .15s}
 .cal-all-btn.active{background:#f0a500;border-color:#d48f00;color:#1a3a6b}
@@ -89,16 +93,17 @@ canvas{display:block;max-width:100%}
   <div style="display:flex;align-items:center;gap:12px">
     <div class="hdr-title">
       <h1>Dashboard คิวคอนกรีตประจำวัน</h1>
-      <p>สิงหาคม 2569</p>
+      <p id="monthLabelHdr">สิงหาคม 2569</p>
     </div>
   </div>
-  <div class="hdr-meta">อัปเดต: 31 ส.ค. 2569<br>ข้อมูลครบ 31 วัน (ครบเดือนสิงหาคม)</div>
+  <div class="hdr-meta" id="hdrMeta">อัปเดต: 31 ส.ค. 2569<br>ข้อมูลครบ 31 วัน (ครบเดือนสิงหาคม)</div>
 </header>
 <nav class="nav">
   <button class="nav-btn" id="navExec" onclick="setView('exec')">&#128203; สรุปผู้บริหาร</button>
   <button class="nav-btn active" id="navDash" onclick="setView('dash')">&#128202; Dashboard</button>
   <button class="nav-btn" id="navFuel" onclick="setView('fuel')">&#9981; น้ำมัน</button>
 </nav>
+<div class="month-bar" id="monthBar"></div>
 <div class="cal-bar" id="calBar">
   <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
     <button class="cal-all-btn active" id="calAllBtn" onclick="selectDate('all')">
@@ -108,7 +113,7 @@ canvas{display:block;max-width:100%}
   </div>
   <div style="width:1px;background:#dce3ee;align-self:stretch"></div>
   <div>
-    <div style="font-size:11px;color:#6b7a99;font-weight:600;margin-bottom:5px">&#128197; สิงหาคม 2569 — คลิกวันที่มีข้อมูล</div>
+    <div style="font-size:11px;color:#6b7a99;font-weight:600;margin-bottom:5px" id="calMonthLabel">&#128197; สิงหาคม 2569 — คลิกวันที่มีข้อมูล</div>
     <div class="cal-grid" id="calGrid"></div>
     <div style="display:flex;gap:14px;margin-top:6px">
       <div style="display:flex;align-items:center;gap:5px;font-size:10px;color:#8a96b0"><div style="width:10px;height:10px;border-radius:3px;background:#eaf0fb;border:1px solid #1a3a6b"></div>มีข้อมูล</div>
@@ -119,7 +124,7 @@ canvas{display:block;max-width:100%}
 <div class="content">
   <div class="notice" id="noticeBar"><span>&#128203;</span><span id="noticeText">แสดงคิวรวมสะสมทั้งเดือน</span></div>
   <div id="viewExec" style="display:none">
-    <div class="sec-title"><span>&#128203; สรุปผู้บริหาร &middot; สิงหาคม 2569</span></div>
+    <div class="sec-title"><span id="execTitleMonth">&#128203; สรุปผู้บริหาร &middot; สิงหาคม 2569</span></div>
     <div class="kpi-row" id="execKpiRow"></div>
     <div class="exec-grid-2">
       <div class="exec-card"><h3>&#127981; การผลิตแยกตามสถานที่</h3><div id="execLocTable"></div></div>
@@ -210,10 +215,10 @@ const PRODUCTS = [
   {key:'เสาเข็ม_ปท',     label:'เสาเข็ม',        loc:'ptum',group:'เสาเข็ม'},
   {key:'แผ่นพื้น_ปท',    label:'แผ่นพื้น',       loc:'ptum',group:'แผ่น'},
 ];
-const DATA_DAYS = 31;
-
-/* ══ DATA ════════════════════════════════════════════════ */
-const DAILY = [
+/* ══ DATA — รายเดือน (แต่ละเดือนมี DAILY/FUEL_DAILY ของตัวเอง) ═══ */
+const MONTHS = [
+{key:'2569-08',short:'ส.ค.',year:'2569',label:'สิงหาคม 2569',totalDaysInMonth:31,dataDays:31,
+DAILY:[
 // วันที่ 1-31 มีข้อมูลจริงจากไฟล์ Google Drive (คิวคอนกรีตประจำวัน เดือน ส.ค.69.xlsx) — ครบเดือนสิงหาคมแล้ว
   {label:'1 ส.ค.', P1:92.75,P2:57.75,'ท่อกลม':95.6,'บ่ออัด':0,'บ่อเท':0,'แผ่นพื้น_นว':0,'แผ่นทางเท้า':0,'รางระบายน้ำอัด':2.35,'ขอบคันหิน':7.05,'บล็อกคัลเวิร์ท':74.45,'รั้วสำเร็จรูป':0,'กำแพงกันดิน':0,'ผสมเสร็จ':0,'อื่นๆ':0,'เสาเข็ม_นป':14.5,'เสาเข็ม_ปท':0,'แผ่นพื้น_ปท':13.9},
   {label:'2 ส.ค.', P1:117.5,P2:0,'ท่อกลม':0,'บ่ออัด':0,'บ่อเท':0,'แผ่นพื้น_นว':0,'แผ่นทางเท้า':0,'รางระบายน้ำอัด':0,'ขอบคันหิน':0,'บล็อกคัลเวิร์ท':0,'รั้วสำเร็จรูป':0,'กำแพงกันดิน':0,'ผสมเสร็จ':0,'อื่นๆ':0,'เสาเข็ม_นป':0,'เสาเข็ม_ปท':0,'แผ่นพื้น_ปท':0},
@@ -246,9 +251,8 @@ const DAILY = [
   {label:'29 ส.ค.',P1:165.25,P2:92.5,'ท่อกลม':56.9,'บ่ออัด':9.55,'บ่อเท':12.2,'แผ่นพื้น_นว':9.4,'รางระบายน้ำอัด':0,'บล็อกคัลเวิร์ท':53.35,'รั้วสำเร็จรูป':21.6,'กำแพงกันดิน':0,'แผ่นทางเท้า':0,'ขอบคันหิน':7.1,'ผสมเสร็จ':0,'อื่นๆ':0,'เสาเข็ม_นป':28,'เสาเข็ม_ปท':6.56,'แผ่นพื้น_ปท':0},
   {label:'30 ส.ค.',P1:0,P2:172.25,'ท่อกลม':0,'บ่ออัด':0,'บ่อเท':8,'แผ่นพื้น_นว':50,'รางระบายน้ำอัด':0,'บล็อกคัลเวิร์ท':0,'รั้วสำเร็จรูป':19.8,'กำแพงกันดิน':0,'แผ่นทางเท้า':0,'ขอบคันหิน':0,'ผสมเสร็จ':0,'อื่นๆ':0,'เสาเข็ม_นป':0,'เสาเข็ม_ปท':31.65,'แผ่นพื้น_ปท':0},
   {label:'31 ส.ค.',P1:149,P2:65,'ท่อกลม':63.4,'บ่ออัด':9.45,'บ่อเท':18.6,'แผ่นพื้น_นว':49.6,'รางระบายน้ำอัด':0,'บล็อกคัลเวิร์ท':44.9,'รั้วสำเร็จรูป':21.3,'กำแพงกันดิน':0,'แผ่นทางเท้า':0,'ขอบคันหิน':6.6,'ผสมเสร็จ':0,'อื่นๆ':0,'เสาเข็ม_นป':38,'เสาเข็ม_ปท':0,'แผ่นพื้น_ปท':25.86},
-];
-
-const FUEL_DAILY = [
+],
+FUEL_DAILY:[
 // วันที่ 1-31 มีข้อมูลจริงจากไฟล์ Google Drive (เบิกน้ำมัน สค.69) — ครบเดือนสิงหาคมแล้ว
   {label:'1 ส.ค.', backhoe:100,loaderPT:60,loaderNW:0},
   {label:'2 ส.ค.', backhoe:100,loaderPT:0,loaderNW:0},
@@ -281,7 +285,37 @@ const FUEL_DAILY = [
   {label:'29 ส.ค.',backhoe:0,  loaderPT:60,loaderNW:80},
   {label:'30 ส.ค.',backhoe:0,  loaderPT:60,loaderNW:0},
   {label:'31 ส.ค.',backhoe:100,loaderPT:60,loaderNW:0},
+]},
+{key:'2569-09',short:'ก.ย.',year:'2569',label:'กันยายน 2569',totalDaysInMonth:30,dataDays:2,
+DAILY:[
+// วันที่ 1-2 มีข้อมูลจริงจากไฟล์ Google Drive (คิวคอนกรีตประจำวัน เดือน ก.ย.69.xlsx) วันที่เหลือยังไม่มีการบันทึก
+  {label:'1 ก.ย.',P1:0,P2:135.75,'ท่อกลม':82.6,'บ่ออัด':8.1,'บ่อเท':12.5,'แผ่นพื้น_นว':50,'รางระบายน้ำอัด':0,'บล็อกคัลเวิร์ท':46.85,'รั้วสำเร็จรูป':21.9,'กำแพงกันดิน':0,'แผ่นทางเท้า':0,'ขอบคันหิน':6.6,'ผสมเสร็จ':0,'อื่นๆ':0,'เสาเข็ม_นป':36,'เสาเข็ม_ปท':0,'แผ่นพื้น_ปท':10.04},
+  {label:'2 ก.ย.',P1:164.75,P2:66,'ท่อกลม':60.6,'บ่ออัด':4.75,'บ่อเท':12,'แผ่นพื้น_นว':49.2,'รางระบายน้ำอัด':0,'บล็อกคัลเวิร์ท':18.45,'รั้วสำเร็จรูป':22.4,'กำแพงกันดิน':0,'แผ่นทางเท้า':0,'ขอบคันหิน':8.65,'ผสมเสร็จ':0,'อื่นๆ':0.3,'เสาเข็ม_นป':36,'เสาเข็ม_ปท':33.2,'แผ่นพื้น_ปท':10.04},
+],
+FUEL_DAILY:[
+// วันที่ 1-2 มีข้อมูลจริงจากไฟล์ Google Drive (เบิกน้ำมัน กย.69) วันที่เหลือยังไม่มีการบันทึก
+  {label:'1 ก.ย.',backhoe:100,loaderPT:0,loaderNW:40},
+  {label:'2 ก.ย.',backhoe:100,loaderPT:60,loaderNW:40},
+]},
 ];
+
+/* เติมวันที่เหลือของแต่ละเดือนเป็น 0 หลังวันสุดท้ายที่มีข้อมูลจริง (ครั้งเดียวตอนโหลดสคริปต์) */
+MONTHS.forEach(m=>{
+  for(let d=m.dataDays+1; d<=m.totalDaysInMonth; d++){
+    const r={label:d+' '+m.short}; PRODUCTS.forEach(p=>{r[p.key]=0;}); m.DAILY.push(r);
+    m.FUEL_DAILY.push({label:d+' '+m.short,backhoe:0,loaderPT:0,loaderNW:0});
+  }
+});
+
+/* ══ MONTH STATE ═════════════════════════════════════════ */
+let DATA_DAYS, DAILY, FUEL_DAILY, TOTAL_DAYS_IN_MONTH, MONTH_LABEL, MONTH_SHORT, MONTH_YEAR;
+let currentMonthIdx = MONTHS.length-1;
+function loadMonth(idx){
+  const m=MONTHS[idx];
+  DAILY=m.DAILY; FUEL_DAILY=m.FUEL_DAILY; DATA_DAYS=m.dataDays;
+  TOTAL_DAYS_IN_MONTH=m.totalDaysInMonth; MONTH_LABEL=m.label; MONTH_SHORT=m.short; MONTH_YEAR=m.year;
+}
+loadMonth(currentMonthIdx);
 
 /* ══ HELPERS ═════════════════════════════════════════════ */
 const fmtN=(v)=>(+(v||0)).toLocaleString('th-TH',{minimumFractionDigits:2,maximumFractionDigits:2});
@@ -542,14 +576,45 @@ function setView(v){
   if(v==='fuel') buildFuelChart();
 }
 
+/* ══ MONTH SWITCHER ══════════════════════════════════════ */
+function buildMonthBar(){
+  document.getElementById('monthBar').innerHTML = MONTHS.map((m,i)=>`<button class="month-btn${i===currentMonthIdx?' active':''}" onclick="switchMonth(${i})">${m.short} ${m.year.slice(-2)}</button>`).join('');
+}
+function updateHeaderMonthTexts(){
+  document.getElementById('monthLabelHdr').textContent = MONTH_LABEL;
+  document.title = 'Dashboard คิวคอนกรีต '+MONTH_LABEL;
+  const lastLabel = DAILY[DATA_DAYS-1] ? DAILY[DATA_DAYS-1].label : '—';
+  const complete = DATA_DAYS>=TOTAL_DAYS_IN_MONTH;
+  const monthName = MONTH_LABEL.split(' ')[0];
+  document.getElementById('hdrMeta').innerHTML = `อัปเดต: ${lastLabel} ${MONTH_YEAR}<br>ข้อมูลครบ ${DATA_DAYS} วัน (${complete?'ครบเดือน'+monthName:'เดือนยังไม่สมบูรณ์'})`;
+  document.getElementById('calMonthLabel').innerHTML = `&#128197; ${MONTH_LABEL} — คลิกวันที่มีข้อมูล`;
+  document.getElementById('execTitleMonth').innerHTML = `&#128203; สรุปผู้บริหาร &middot; ${MONTH_LABEL}`;
+}
+function switchMonth(idx){
+  if(idx===currentMonthIdx)return;
+  currentMonthIdx=idx;
+  loadMonth(idx);
+  selectedDay='all';
+  buildMonthBar();
+  updateHeaderMonthTexts();
+  buildCalendar();
+  document.getElementById('calAllBtn').classList.add('active');
+  updateFuelKPI();
+  updateFuelTable();
+  updateAll();
+  if(currentView==='dash') buildTrendChart();
+  if(currentView==='fuel') buildFuelChart();
+  if(currentView==='exec') renderExec();
+}
+
 /* ══ CALENDAR ════════════════════════════════════════════ */
 function buildCalendar(){
   const DOW=['อา','จ','อ','พ','พฤ','ศ','ส'];
   let html=DOW.map((d,i)=>`<div class="cal-dow${i===0||i===6?' sat':''}">${d}</div>`).join('');
   for(let i=0;i<3;i++)html+=`<div class="cal-day"></div>`;
-  for(let day=1;day<=31;day++){
+  for(let day=1;day<=TOTAL_DAYS_IN_MONTH;day++){
     const idx=day-1, hasData=idx<DATA_DAYS;
-    const tip=hasData?`${DAILY[idx].label} · รวม ${fmtN(dayTotal(DAILY[idx]))} ลบ.ม.`:`${day} ส.ค. · ยังไม่มีข้อมูล`;
+    const tip=hasData?`${DAILY[idx].label} · รวม ${fmtN(dayTotal(DAILY[idx]))} ลบ.ม.`:`${day} ${MONTH_SHORT} · ยังไม่มีข้อมูล`;
     if(hasData)html+=`<div class="cal-day has-data" data-idx="${idx}" onclick="selectDate(${idx})" title="${tip}">${day}</div>`;
     else html+=`<div class="cal-day" title="${tip}">${day}</div>`;
   }
@@ -568,7 +633,7 @@ function selectDate(idx){
 /* ══ NOTICE ══════════════════════════════════════════════ */
 function updateNotice(){
   const el=document.getElementById('noticeText');
-  el.textContent=selectedDay==='all'?`แสดงคิวรวมสะสม 1–${DATA_DAYS} สิงหาคม 2569 (มีข้อมูล ${DATA_DAYS} วัน จาก 31 วัน)`:`แสดงคิววันที่ ${DAILY[selectedDay].label} 2569`;
+  el.textContent=selectedDay==='all'?`แสดงคิวรวมสะสม 1–${DATA_DAYS} ${MONTH_LABEL} (มีข้อมูล ${DATA_DAYS} วัน จาก ${TOTAL_DAYS_IN_MONTH} วัน)`:`แสดงคิววันที่ ${DAILY[selectedDay].label} ${MONTH_YEAR}`;
 }
 
 /* ══ DASHBOARD KPI ═══════════════════════════════════════ */
@@ -683,10 +748,10 @@ function renderExec(){
   const maxIdx=allTots.indexOf(Math.max(...allTots));
   const avgDay=mTotal/DATA_DAYS;
   document.getElementById('execKpiRow').innerHTML=[
-    {label:'คิวรวมสะสม',sub:`1–${DATA_DAYS} ส.ค. 2569`,val:fmtN(mTotal),unit:'ลบ.ม.',accent:'#f0a500'},
+    {label:'คิวรวมสะสม',sub:`1–${DATA_DAYS} ${MONTH_SHORT} ${MONTH_YEAR}`,val:fmtN(mTotal),unit:'ลบ.ม.',accent:'#f0a500'},
     {label:'ค่าเฉลี่ยต่อวัน',sub:`จาก ${DATA_DAYS} วัน`,val:fmtN(avgDay),unit:'ลบ.ม./วัน',accent:'#3b82f6'},
     {label:'วันผลิตสูงสุด',sub:DAILY[maxIdx].label,val:fmtN(Math.max(...allTots)),unit:'ลบ.ม.',accent:'#27ae60'},
-    {label:'ข้อมูลครบ',sub:'จาก 31 วันของเดือน',val:DATA_DAYS,unit:'/ 31 วัน',accent:'#8e44ad'},
+    {label:'ข้อมูลครบ',sub:`จาก ${TOTAL_DAYS_IN_MONTH} วันของเดือน`,val:DATA_DAYS,unit:`/ ${TOTAL_DAYS_IN_MONTH} วัน`,accent:'#8e44ad'},
   ].map(c=>`<div class="kpi-card" style="border-top-color:${c.accent}"><div class="kpi-label">${c.label}</div><div class="kpi-sub">${c.sub}</div><div class="kpi-val">${c.val}<span class="kpi-unit">${c.unit}</span></div></div>`).join('');
 
   // Location table
@@ -732,15 +797,18 @@ function renderExec(){
   // Observations
   const p2Days=DAILY.slice(0,DATA_DAYS).filter(d=>(d['P2']||0)>0).length;
   const topProdAll=topProds[0];
-  document.getElementById('execObs').innerHTML=[
+  const obsList=[
     {icon:'✅',text:`คิวรวมสะสม <strong>${fmtN(mTotal)} ลบ.ม.</strong> ใน ${DATA_DAYS} วัน ค่าเฉลี่ย ${fmtN(avgDay)} ลบ.ม./วัน`},
     {icon:'🏆',text:`สินค้าสูงสุด: <strong>${topProdAll?.label||'—'} (${topProdAll?LOCATIONS[topProdAll.loc].label:'—'})</strong> ${fmtN(topProdAll?.val||0)} ลบ.ม.`},
     {icon:'📅',text:`วันผลิตสูงสุด: <strong>${DAILY[maxIdx].label}</strong> รวม ${fmtN(Math.max(...allTots))} ลบ.ม.`},
     {icon:'🏭',text:`นาวัง ผลิตสูงสุด ${fmtN(locTotal(cum,'nawg'))} ลบ.ม. (${mTotal>0?((locTotal(cum,'nawg')/mTotal)*100).toFixed(1):0}% ของเดือน)`},
     {icon:p2Days<=2?'⚠️':'✅',text:`P2 (พัทยา) ผลิต <strong>${p2Days} วัน</strong> จาก ${DATA_DAYS} วัน รวม ${fmtN(cum['P2']||0)} ลบ.ม.`},
     {icon:'⛽',text:`น้ำมันรวม ${(fBH+fPT+fNW).toLocaleString('th-TH')} ลิตร — ข้อมูลยังมีแค่ ${DATA_DAYS} วัน <strong>ยังสรุปประสิทธิภาพน้ำมันไม่ได้ชัดเจน</strong>`},
-    {icon:'📊',text:`รอข้อมูลอีก <strong>${31-DATA_DAYS} วัน</strong> (${DATA_DAYS+1}–31 ส.ค.)`},
-  ].map(o=>`<div class="obs-item"><span style="font-size:16px;flex-shrink:0;line-height:1.4">${o.icon}</span><span>${o.text}</span></div>`).join('');
+  ];
+  if(DATA_DAYS<TOTAL_DAYS_IN_MONTH){
+    obsList.push({icon:'📊',text:`รอข้อมูลอีก <strong>${TOTAL_DAYS_IN_MONTH-DATA_DAYS} วัน</strong> (${DATA_DAYS+1}–${TOTAL_DAYS_IN_MONTH} ${MONTH_SHORT})`});
+  }
+  document.getElementById('execObs').innerHTML=obsList.map(o=>`<div class="obs-item"><span style="font-size:16px;flex-shrink:0;line-height:1.4">${o.icon}</span><span>${o.text}</span></div>`).join('');
 }
 
 /* ══ UPDATE ALL ══════════════════════════════════════════ */
@@ -768,6 +836,8 @@ window.addEventListener('resize',()=>{
 
 /* ══ INIT ════════════════════════════════════════════════ */
 function init(){
+  buildMonthBar();
+  updateHeaderMonthTexts();
   buildCalendar();
   updateFuelKPI();
   updateFuelTable();
